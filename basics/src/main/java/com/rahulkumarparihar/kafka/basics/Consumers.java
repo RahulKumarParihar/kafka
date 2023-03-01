@@ -15,24 +15,25 @@ public class Consumers extends KafkaBaseClass {
 
     public static void main(String[] args) {
         _log.info("Hello from consumer!");
+        String groupId = "my-application-group";
 
         // create consumer properties
-        Properties properties = getConsumerProperties("my-application-group");
+        Properties properties = getConsumerProperties(groupId);
 
         // create consumer
-        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
+            // subscribe to a topic
+            kafkaConsumer.subscribe(List.of("third_topic"));
 
-        // subscribe to a topic
-        kafkaConsumer.subscribe(List.of("third_topic"));
+            while (true) {
+                _log.info("Polling");
 
-        while (true) {
-            _log.info("Polling");
+                ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(1000));
 
-            ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(1000));
-
-            for (ConsumerRecord<String, String> record : records) {
-                _log.info("Key: " + record.key() + " Value: " + record.value());
-                _log.info("Partition: " + record.partition() + " Offset: " + record.offset());
+                for (ConsumerRecord<String, String> record : records) {
+                    _log.info("Key: " + record.key() + " Value: " + record.value());
+                    _log.info("Partition: " + record.partition() + " Offset: " + record.offset());
+                }
             }
         }
     }
