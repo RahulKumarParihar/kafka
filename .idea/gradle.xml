@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/basics" />
+            <option value="$PROJECT_DIR$/wikipediaStream" />
           </set>
         </option>
       </GradleProjectSettings>
