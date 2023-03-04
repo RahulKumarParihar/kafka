@@ -9,8 +9,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class Producer extends BaseClass {
-    private String topic;
-    private String url;
+    private final String topic;
+    private final String url;
 
     public Producer(String topic, String url) {
         this.topic = topic;
@@ -23,7 +23,7 @@ public class Producer extends BaseClass {
         return new KafkaProducer<String, String>(properties);
     }
 
-    public void sendMessage(long produceForMinutes) throws InterruptedException {
+    public void sendMessage(final long produceForMinutes) throws InterruptedException {
         KafkaProducer<String, String> producer = create();
 
         EventHandler eventHandler = new WikipediaChangeEventHandler(producer, topic);
@@ -34,7 +34,6 @@ public class Producer extends BaseClass {
         // start the producer in another thread
         eventSource.start();
 
-        // we produce for 10 minutes and block the program until then
         TimeUnit.MINUTES.sleep(produceForMinutes);
     }
 }
