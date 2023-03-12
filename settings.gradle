@@ -1,4 +1,6 @@
 rootProject.name = 'kafka'
 include 'basics'
 include 'wikipediaStream'
+include 'WikimediaChangeProducer'
+include 'wikimediaProducer'
 

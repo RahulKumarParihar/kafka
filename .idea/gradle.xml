@@ -11,7 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/WikimediaChangeProducer" />
             <option value="$PROJECT_DIR$/basics" />
+            <option value="$PROJECT_DIR$/wikimediaProducer" />
             <option value="$PROJECT_DIR$/wikipediaStream" />
           </set>
         </option>
