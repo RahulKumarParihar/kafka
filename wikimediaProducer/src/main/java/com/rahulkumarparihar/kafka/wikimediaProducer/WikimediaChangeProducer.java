@@ -2,8 +2,10 @@ package com.rahulkumarparihar.kafka.wikimediaProducer;
 
 import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.EventSource;
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.net.URI;
@@ -14,7 +16,14 @@ public class WikimediaChangeProducer {
     public static void main(String[] args) throws InterruptedException {
         Properties properties = new Properties();
 
-        properties.setProperty("ProducerConfig.BOOTSTRAP_SERVERS_CONFIG", "127.0.0.1:9202");
+        // connect to local server
+        //properties.setProperty("ProducerConfig.BOOTSTRAP_SERVERS_CONFIG", "127.0.0.1:9202");
+
+        // connect to ssl server
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "");
+        properties.setProperty(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        properties.setProperty(SaslConfigs.SASL_JAAS_CONFIG, "");
+        properties.setProperty(SaslConfigs.SASL_MECHANISM, "PLAIN");
 
         // set producer properties
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
