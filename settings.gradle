@@ -3,4 +3,5 @@ include 'basics'
 include 'wikipediaStream'
 include 'WikimediaChangeProducer'
 include 'wikimediaProducer'
+include 'openSearchConsumer'
 
